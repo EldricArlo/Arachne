@@ -1,4 +1,4 @@
-# 🚀 Advanced YouTube Downloader
+<h1 align = "center" color = "red">Advanced YouTube Downloader</h1>
 
   <!-- 第一行 -->
   <div align = "center">
@@ -176,3 +176,4 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
