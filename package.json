@@ -41,10 +41,6 @@
     ],
     "extraResources": [
       {
-        "from": "backend",
-        "to": "backend"
-      },
-      {
         "from": "bin",
         "to": "bin"
       }

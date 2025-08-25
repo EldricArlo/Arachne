@@ -5,6 +5,7 @@ import logging
 from flask import Blueprint, request, jsonify, g, current_app
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
+logger = logging.getLogger(__name__)
 
 # 关键修正: 移除所有全局变量和 init_routes 函数
 
@@ -25,7 +26,8 @@ def get_video_info():
         info = g.downloader.get_video_info(url)
         return jsonify({'success': True, 'info': info})
     except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
+        logger.error(f"Error in /info route: {e}", exc_info=True)
+        return jsonify({'success': False, 'error': '获取视频信息时发生内部错误，请检查日志。'}), 500
 
 @api_bp.route('/download', methods=['POST'])
 def start_download():
@@ -43,7 +45,8 @@ def start_download():
         )
         return jsonify({'success': True, 'task_id': task_id})
     except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
+        logger.error(f"Error in /download route: {e}", exc_info=True)
+        return jsonify({'success': False, 'error': '启动下载任务时发生内部错误，请检查日志。'}), 500
 
 @api_bp.route('/progress/<task_id>', methods=['GET'])
 def get_download_progress(task_id: str):
@@ -64,4 +67,5 @@ def delete_file():
         g.downloader.delete_file(filename)
         return jsonify({'success': True})
     except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
+        logger.error(f"Error in /delete route: {e}", exc_info=True)
+        return jsonify({'success': False, 'error': '删除文件时发生内部错误，请检查日志。'}), 500

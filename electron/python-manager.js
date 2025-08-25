@@ -15,8 +15,12 @@ function initializePythonManager(mw) {
 }
 
 function findPythonExecutable() {
-    console.log('[Python Manager] Using "python" executable for Windows compatibility.');
-    return 'python';
+    // 在非 Windows 平台上，'python' 命令可能指向 Python 2.x。
+    // 优先使用 'python3' 可以更可靠地找到 Python 3.x 的解释器。
+    // 在 Windows 上，'python' 通常由 Python 3 安装程序正确设置在 PATH 中。
+    const executable = process.platform === 'win32' ? 'python' : 'python3';
+    console.log(`[Python Manager] Using "${executable}" as the preferred executable.`);
+    return executable;
 }
 
 function getFfmpegPath() {
@@ -25,6 +29,7 @@ function getFfmpegPath() {
     }
     const platform = process.platform;
     const ffmpegExecutable = platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg';
+    // process.resourcesPath 指向打包应用中的 resources 目录
     const ffmpegPath = path.join(process.resourcesPath, 'bin', ffmpegExecutable);
     console.log(`[FFmpeg Manager] Packaged FFmpeg path: ${ffmpegPath}`);
     return ffmpegPath;
@@ -47,14 +52,14 @@ async function startPythonServer() {
         env.FFMPEG_PATH = ffmpegPath;
     }
     
-    // 解决中文乱码问题
+    // 解决在某些系统上子进程输出中文乱码的问题
     env.PYTHONIOENCODING = 'utf-8';
 
     console.log(`[Python Manager] Starting server script: backend.app on port ${apiPort}`);
     const projectRoot = path.join(__dirname, '..');
 
     pythonProcess = spawn(pythonExecutable, [
-        '-u',
+        '-u', // 无缓冲输出，确保日志实时
         '-m', 'backend.app',
         '--port', apiPort,
         '--downloads-dir', getDownloadsPath()
@@ -68,7 +73,7 @@ async function startPythonServer() {
         const output = data.toString().trim();
         console.log(`[Python STDOUT]: ${output}`);
         // 这是一个关键的标志，表示 Flask 服务已就绪
-        if (output.includes('* Serving Flask app') && mainWindow) {
+        if (output.includes('Running on') && mainWindow) {
             console.log('[Python Manager] Backend is ready. Sending port to frontend.');
             mainWindow.webContents.send('backend-ready', apiPort);
         }
@@ -88,7 +93,7 @@ async function startPythonServer() {
 
     pythonProcess.on('error', (err) => {
         console.error('[Python Manager] Failed to start Python process:', err);
-        dialog.showErrorBox('启动后端失败', `无法启动 Python 服务: ${err.message}`);
+        dialog.showErrorBox('启动后端失败', `无法启动 Python 服务: ${err.message}. 请确保 Python 3.8+ 已安装并位于系统的 PATH 中。`);
         pythonProcess = null;
     });
 }
