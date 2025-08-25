@@ -40,12 +40,11 @@
 
 A modern, cross-platform YouTube video downloader built with **Electron**, **Python/Flask**, **yt-dlp**, and **FFmpeg**, featuring a powerful and flexible graphical user interface.
 
-![Application Screenshot](assets/screenshot.png)
-
 ---
 
 # License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 
