@@ -1,0 +1,53 @@
+{
+  "name": "youtube-downloader",
+  "version": "1.0.0",
+  "description": "基于 yt-dlp 和 ffmpeg 的 YouTube 视频下载器",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "nodemon --exec electron .",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "build-mac": "electron-builder --mac",
+    "build-linux": "electron-builder --linux"
+  },
+  "keywords": [
+    "youtube",
+    "downloader",
+    "yt-dlp",
+    "electron"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "portfinder": "^1.0.31"
+  },
+  "build": {
+    "appId": "com.yourname.youtube-downloader",
+    "productName": "YouTube Downloader",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "frontend/**/*",
+      "electron/**/*",
+      "backend/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend"
+      },
+      {
+        "from": "bin",
+        "to": "bin"
+      }
+    ]
+  }
+}
