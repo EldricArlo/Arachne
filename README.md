@@ -1,18 +1,6 @@
 # Advanced YouTube Downloader
 
 <p align="center">
-  <!-- For better visuals on GitHub, it's recommended to place this style block in the project's wiki or a Gist, then link the image -->
-  <style>
-    .badge-container a {
-      display: inline-block;
-      margin: 4px;
-      transition: all 0.3s ease-in-out;
-    }
-    .badge-container a:hover {
-      transform: scale(1.05) translateY(-3px);
-      filter: brightness(1.1);
-    }
-  </style>
   <div class="badge-container">
     <!-- Tech Stack Badges -->
     <a href="https://www.electronjs.org/" title="Electron">
@@ -45,6 +33,7 @@ A modern, cross-platform YouTube video downloader built with **Electron**, **Pyt
 # License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 
 
