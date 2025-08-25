@@ -20,14 +20,6 @@ width = "95" alt = "License: MIT"></a>
 <img src = "https://img.shields.io/badge/yt--dlp-latest-brightgreen?style=flat" al = "yt-dlp" height = "22" width = "95"></a>
 <a href = "https://dotnet.microsoft.com/zh-cn/download/dotnet/latest/runtime"><img alt="Windows" src = "https://img.shields.io/badge/platform-Windows-blue?logo=windowsxp&style=flat&color=1E9BFA"
 height = "22" width = "95"></a>
-    <br>
-    <!-- Community & License Badges (Please replace with your own links) -->
-    <a href="https://discord.gg/YOUR_INVITE_CODE" title="Join our Discord">
-      <img src="https://img.shields.io/badge/Discord-JOIN_US-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
-    </a>
-    <a href="https://opensource.org/licenses/MIT" title="MIT License">
-      <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT">
-    </a>
   </div>
 </p>
 
@@ -168,6 +160,7 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 
 
