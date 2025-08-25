@@ -1,36 +1,38 @@
 # 🚀 Advanced YouTube Downloader
 
 <p align="center">
-  <div style="display: flex; justify-content: center; gap: 5px;">
+  <!-- 第一行徽章 -->
+  <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 5px;">
     <a href="https://www.electronjs.org/" title="Electron">
-      <img src="https://img.shields.io/badge/Electron-47848F?style=flat&logo=electron&logoColor=white" alt="Electron">
+      <img src="https://img.shields.io/badge/Electron-47848F?style=for-the-badge&logo=electron&logoColor=white" alt="Electron">
     </a>
     <a href="https://discord.gg/BNvHMDr7" title="Discord">
-      <img src="https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord">
+      <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
     </a>
     <a href="https://t.me/+dHEs5v_mLfNjYjk0" title="Telegram">
-      <img src="https://img.shields.io/badge/Telegram-2CA5E0?style=flat&logo=telegram&logoColor=white" alt="Telegram">
+      <img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram">
     </a>
   </div>
   
-  <div style="display: flex; justify-content: center; gap: 5px; margin-top: 5px;">
+  <!-- 第二行徽章 -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px;">
     <a href="https://opensource.org/licenses/MIT" title="License: MIT">
-      <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat" alt="License: MIT">
+      <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License: MIT">
     </a>
     <a href="#" title="Version">
-      <img src="https://img.shields.io/badge/version-10.4.2-red?style=flat" alt="Version">
+      <img src="https://img.shields.io/badge/version-10.4.2-red?style=for-the-badge" alt="Version">
     </a>
     <a href="https://www.python.org/" title="Python">
-      <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+      <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
     </a>
     <a href="https://flask.palletsprojects.com/" title="Flask">
-      <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white" alt="Flask">
+      <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
     </a>
     <a href="https://github.com/yt-dlp/yt-dlp" title="yt-dlp">
-      <img src="https://img.shields.io/badge/yt--dlp-latest-brightgreen?style=flat" alt="yt-dlp">
+      <img src="https://img.shields.io/badge/yt--dlp-latest-brightgreen?style=for-the-badge" alt="yt-dlp">
     </a>
     <a href="https://dotnet.microsoft.com/zh-cn/download/dotnet/latest/runtime" title="Platform: Windows">
-      <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=flat&logo=windows&logoColor=white" alt="Platform: Windows">
+      <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Platform: Windows">
     </a>
   </div>
 </p>
@@ -172,6 +174,7 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 
 
