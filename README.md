@@ -2,7 +2,7 @@
 
 <p align="center">
   <!-- For better visuals on GitHub, it's recommended to place this style block in the project's wiki or a Gist, then link the image -->
-  <div class="badge-container">
+  <div>
     <!-- Tech Stack Badges -->
 <a href = "https://www.electronjs.org/" title = "Electron">
   <img src = "https://img.shields.io/badge/-Electron-47848F?style=flat&logo=electron&logoColor=white" height = "22" width = "95" alt="Electron">
@@ -13,7 +13,8 @@
 <a href = "https://t.me/+dHEs5v_mLfNjYjk0">
   <img src = "https://img.shields.io/badge/Telegram-%235AA9E6?logo=telegram&labelColor=FFFFFF" height = "22" width = "95" alt = "Telegram">
 </a>
-
+  </div>
+  <div>
 <a href = "https://opensource.org/licenses/MIT">
 <img src = "https://img.shields.io/badge/License-MIT-yellow.svg?style=flat" height = "22" width = "95" alt = "License: MIT">
 </a>
@@ -31,7 +32,7 @@
 </a>
 <a href = "https://dotnet.microsoft.com/zh-cn/download/dotnet/latest/runtime">
   <img alt="Windows" src = "https://img.shields.io/badge/platform-Windows-blue?logo=windowsxp&style=flat&color=1E9BFA"
-height = "22" width = "95">
+height = "22" width = "120">
 </a>
   </div>
 </p>
@@ -173,6 +174,7 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 
 
