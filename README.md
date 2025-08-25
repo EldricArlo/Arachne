@@ -1,5 +1,6 @@
 <h1 align = "center" color = "red">Advanced YouTube Downloader</h1>
 
+
   <!-- 第一行 -->
   <div align = "center">
     <a href="https://www.electronjs.org/" title="Electron">
@@ -39,7 +40,7 @@
     </a>
   </div>
 
-A modern, cross-platform YouTube video downloader built with **Electron**, **Python/Flask**, **yt-dlp**, and **FFmpeg**, featuring a powerful and flexible graphical user interface.
+<h2 align = "center">A modern, cross-platform YouTube video downloader built with Electron, Python/Flask, yt-dlp, and FFmpeg, featuring a powerful and flexible graphical user interface.</h2>
 
 ![Application Screenshot](photograph/screenshot.png)
 
@@ -176,4 +177,3 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-
