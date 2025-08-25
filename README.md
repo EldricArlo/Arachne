@@ -14,25 +14,26 @@
   <img src = "https://img.shields.io/badge/Telegram-%235AA9E6?logo=telegram&labelColor=FFFFFF" height = "22" width = "95" alt = "Telegram">
 </a>
   </div>
+  
   <div>
 <a href = "https://opensource.org/licenses/MIT">
 <img src = "https://img.shields.io/badge/License-MIT-yellow.svg?style=flat" height = "22" width = "95" alt = "License: MIT">
 </a>
 <a href = "" title = "version">
-  <img src = "https://img.shields.io/badge/version-10.4.2-red" height = "22" width = "95" alt = "version">
+  <img src = "https://img.shields.io/badge/version-10.4.2-red" height = "25" width = "95" alt = "version">
 </a>
 <a href = "https://www.python.org/" title = "Python">
-<img src = "https://img.shields.io/badge/Python-1.1+-3776AB?style=flat&logo=python&logoColor=white" alt = "Python" height = "22" width = "95">
+<img src = "https://img.shields.io/badge/Python-1.1+-3776AB?style=flat&logo=python&logoColor=white" alt = "Python" height = "25" width = "95">
 </a>
 <a href = "https://flask.palletsprojects.com/" title = "Flask">
-<img src = "https://img.shields.io/badge/Flask-2.3+-000000?style=flat&logo=flask&logoColor=white" alt = "Flask" height = "22" width = "95">
+<img src = "https://img.shields.io/badge/Flask-2.3+-000000?style=flat&logo=flask&logoColor=white" alt = "Flask" height = "25" width = "95">
 </a>
 <a href = "https://github.com/yt-dlp/yt-dlp" title = "yt-dlp">
-<img src = "https://img.shields.io/badge/yt--dlp-latest-brightgreen?style=flat" al = "yt-dlp" height = "22" width = "95">
+<img src = "https://img.shields.io/badge/yt--dlp-latest-brightgreen?style=flat" al = "yt-dlp" height = "25" width = "95">
 </a>
 <a href = "https://dotnet.microsoft.com/zh-cn/download/dotnet/latest/runtime">
   <img alt="Windows" src = "https://img.shields.io/badge/platform-Windows-blue?logo=windowsxp&style=flat&color=1E9BFA"
-height = "22" width = "120">
+height = "25" width = "120">
 </a>
   </div>
 </p>
@@ -174,6 +175,7 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 
 
