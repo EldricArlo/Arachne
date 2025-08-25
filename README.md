@@ -1,8 +1,7 @@
 # 🚀 Advanced YouTube Downloader
 
-<p align="center">
   <!-- 第一行 -->
-  <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 5px;">
+  <div align = "center">
     <a href="https://www.electronjs.org/" title="Electron">
       <img src="https://img.shields.io/badge/Electron-47848F?style=flat&logo=electron&logoColor=white" alt="Electron">
     </a>
@@ -15,7 +14,7 @@
   </div>
   
   <!-- 第二行 -->
-  <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 5px;">
+  <div align = "center">
     <a href="https://opensource.org/licenses/MIT" title="License: MIT">
       <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat" alt="License: MIT">
     </a>
@@ -28,7 +27,7 @@
   </div>
 
   <!-- 第三行 -->
-  <div style="display: flex; justify-content: center; gap: 5px;">
+  <div align = "center">
     <a href="https://flask.palletsprojects.com/" title="Flask">
       <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white" alt="Flask">
     </a>
@@ -39,7 +38,6 @@
       <img src="https://img.shields.io/badge/Platform-Windows-0078D6?style=flat&logo=windows&logoColor=white" alt="Platform: Windows">
     </a>
   </div>
-</p>
 
 A modern, cross-platform YouTube video downloader built with **Electron**, **Python/Flask**, **yt-dlp**, and **FFmpeg**, featuring a powerful and flexible graphical user interface.
 
@@ -178,13 +176,3 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-
-
-
-
-
-
-
-
-
-
