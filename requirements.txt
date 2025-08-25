@@ -1,5 +1,11 @@
+# requirements.txt
+#
+# This file lists all the dependency libraries required for the Python backend.
+# Use "pip install -r requirements.txt" to install them.
+
 yt-dlp>=2023.12.30
-flask>=2.3.0
-flask-cors>=4.0.0
-requests>=2.31.0
+Flask>=2.3.0
+Flask-Cors>=4.0.0
+PyYAML>=6.0
 python-dotenv>=1.0.0
+requests>=2.31.0
