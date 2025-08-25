@@ -41,7 +41,6 @@
 A modern, cross-platform YouTube video downloader built with **Electron**, **Python/Flask**, **yt-dlp**, and **FFmpeg**, featuring a powerful and flexible graphical user interface.
 
 ![Application Screenshot](assets/screenshot.png)
-*(This is a placeholder, please be sure to replace it with an actual screenshot of your application)*
 
 ---
 
@@ -176,3 +175,4 @@ This command will simultaneously start the Electron main process and the Python 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
