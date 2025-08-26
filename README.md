@@ -8,6 +8,14 @@
 
 一个基于 Electron 和 Python (yt-dlp) 的现代化、跨平台视频下载器，提供强大而灵活的下载体验。
 
+# 注意事项
+1. 优化了整个代码的逻辑；
+2. 重新修正了相关文件路径；
+3. 处理了所有存在的表面上的报错问题；
+4. 宽泛了下载器的下载地址，现在不仅仅可以下载Youtube媒体，还可以下载所有yt-dl支持的媒体；
+
+---
+
 ![Application Screenshot](./photograph/screenshot.png)
 
 ---
@@ -136,5 +144,6 @@ npm run build-linux  # 打包 Linux 应用
 ```
 
 ## 📜 许可证
+
 
 本项目采用 [MIT License](LICENSE) 授权
