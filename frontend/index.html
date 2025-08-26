@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+    <title>Video Downloader</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Page Header -->
+        <header class="header">
+            <h1>🎥 Advanced Video Downloader</h1>
+            <p>A modern downloader built with yt-dlp and FFmpeg</p>
+            <button class="settings-btn" id="settings-btn" aria-label="Open settings" title="Settings">⚙️</button>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- URL Input Section -->
+            <section class="input-section">
+                <input type="text" id="url-input" placeholder="Paste a video or playlist URL here">
+                <button class="btn" id="info-btn">Get Info</button>
+            </section>
+
+            <!-- Video Info Display Card (hidden by default) -->
+            <section class="video-info-card" id="video-info-card" style="display: none;">
+                <img id="video-thumbnail" src="" alt="Video Thumbnail">
+                <div class="info-text">
+                    <h2 id="video-title">Video title will be displayed here</h2>
+                    <p id="video-uploader">Uploader information</p>
+                    <div class="info-meta">
+                        <span id="video-duration">00:00:00</span> | <span id="video-views">0 views</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Download Options (shown after getting info) -->
+            <section class="options-section" id="options-section" style="display: none;">
+                <!-- Specific download options (like quality, format selection) will be dynamically generated and inserted here by ui.js -->
+            </section>
+
+            <!-- Main Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn primary" id="download-btn" disabled>
+                    <span id="btn-text">🚀 Start Download</span>
+                </button>
+            </div>
+
+            <!-- Progress Bar Section (hidden by default) -->
+            <section class="progress-section" id="progress-section" style="display: none;">
+                <p class="status" id="status">Preparing download...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-details" id="progress-details"></div>
+            </section>
+
+            <hr class="separator">
+
+            <!-- Log and Folder Controls -->
+            <div class="log-controls">
+                <h3>Advanced Panel</h3>
+                <button class="btn secondary" id="toggle-log-btn">Toggle Log</button>
+                <button class="btn secondary" id="clear-log-btn">Clear Log</button>
+                <button class="btn secondary" id="open-folder-btn">Open Downloads Folder</button>
+            </div>
+
+            <!-- Log Output Area (hidden by default) -->
+            <section class="log-section" id="log-section" style="display: none;">
+                <pre id="log-content"></pre>
+            </section>
+
+            <!-- Download History -->
+            <section class="downloads-section">
+                <h3>Download History</h3>
+                <div id="downloads-list">
+                    <!-- Download history items will be dynamically generated and inserted here by ui.js -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Settings Panel (Modal, hidden by default) -->
+    <div id="settings-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>Application Settings</h2>
+                <span id="settings-close-btn" class="close-btn" aria-label="Close">&times;</span>
+            </header>
+            <main class="modal-body">
+                <!-- Settings items are grouped by category -->
+                <fieldset class="settings-group">
+                    <legend>General Settings</legend>
+                    <div class="setting-item">
+                        <label for="setting-downloads-dir">Downloads Directory</label>
+                        <input type="text" id="setting-downloads-dir" placeholder="e.g., C:\Users\YourName\Downloads">
+                    </div>
+                    <div class="setting-item">
+                        <label for="setting-downloads-dir">Downloads Directory</label>
+                        <!-- 将 input 和 button 包裹在一个 div 中，方便布局 -->
+                        <div class="input-with-button">
+                            <input type="text" id="setting-downloads-dir"
+                                placeholder="e.g., C:\Users\YourName\Downloads" readonly>
+                            <button class="btn secondary" id="browse-folder-btn">Browse...</button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="settings-group">
+                    <legend>Network Settings</legend>
+                    <div class="setting-item checkbox-item">
+                        <input type="checkbox" id="setting-proxy-enabled">
+                        <label for="setting-proxy-enabled">Enable Proxy</label>
+                    </div>
+                    <div class="setting-item">
+                        <label for="setting-proxy-url">Proxy Server URL</label>
+                        <input type="text" id="setting-proxy-url" placeholder="e.g., socks5://127.0.0.1:1080" disabled>
+                    </div>
+                </fieldset>
+
+                <fieldset class="settings-group">
+                    <legend>Download Behavior</legend>
+                    <div class="setting-item checkbox-item">
+                        <input type="checkbox" id="setting-use-aria2">
+                        <label for="setting-use-aria2">Use Aria2c for Acceleration (Recommended)</label>
+                    </div>
+                    <div class="setting-item">
+                        <label for="setting-limit-rate">Rate Limit (0 for unlimited)</label>
+                        <input type="text" id="setting-limit-rate" placeholder="e.g., 50K, 4.2M, 0">
+                    </div>
+                </fieldset>
+
+                <fieldset class="settings-group">
+                    <legend>Metadata</legend>
+                    <div class="setting-item checkbox-item">
+                        <input type="checkbox" id="setting-save-thumbnail">
+                        <label for="setting-save-thumbnail">Save thumbnail as .jpg file</label>
+                    </div>
+                    <div class="setting-item checkbox-item">
+                        <input type="checkbox" id="setting-embed-thumbnail">
+                        <label for="setting-embed-thumbnail">Embed thumbnail in media file</label>
+                    </div>
+                    <div class="setting-item checkbox-item">
+                        <input type="checkbox" id="setting-embed-chapters">
+                        <label for="setting-embed-chapters">Embed chapter information</label>
+                    </div>
+                    <div class="setting-item checkbox-item">
+                        <input type="checkbox" id="setting-embed-subtitles">
+                        <label for="setting-embed-subtitles">Embed subtitles</label>
+                    </div>
+                </fieldset>
+            </main>
+            <footer class="modal-footer">
+                <button class="btn secondary" id="settings-cancel-btn">Cancel</button>
+                <button class="btn primary" id="settings-save-btn">Save Settings</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts are loaded last -->
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
