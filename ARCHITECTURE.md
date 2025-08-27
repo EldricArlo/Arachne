@@ -23,7 +23,7 @@ Aurora Downloader is a multi-process application composed of three distinct, com
 *   **Renderer <-> Main (IPC)**: The Renderer communicates with the Main process using Electron's Inter-Process Communication (IPC). This is a secure channel managed via `preload.js` and `ipc-handlers.js`. It's used for actions that require native OS privileges, like opening a folder or showing a confirmation dialog.
 *   **Frontend <-> Backend (HTTP API)**: The Frontend communicates with the Python Backend via a local HTTP REST API. This is used for all core application logic, such as fetching video info, starting downloads, and polling for progress.
 
-![Architecture Diagram](.\photograph\logicofthisproject.png)
+![Architecture Diagram](./photograph/logicofthisproject.png)
 
 ## 2. The Startup Sequence
 
@@ -79,4 +79,5 @@ This sequence details what happens when a user downloads a single video.
 ## 4. State Management
 
 *   **Frontend State (`frontend/js/main.js`)**: The `App` class instance is the single source of truth for the UI. It holds the current configuration, active task progress, and info about the last-fetched video.
+
 *   **Backend State (`backend/tasks.py`)**: The `_tasks` dictionary is the single source of truth for all download jobs. A `threading.Lock` (`_tasks_lock`) is used to protect this dictionary from race conditions, ensuring that updates from multiple download threads and reads from API routes are handled safely.
