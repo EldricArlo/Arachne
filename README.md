@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3.0-black?logo=flask)](https://flask.palletsprojects.com/)
 [![yt-dlp](https://img.shields.io/badge/yt--dlp-2023.12.30-red)](https://github.com/yt-dlp/yt-dlp)
+[![FFmpeg](https://img.shields.io/badge/FFmpeg-8.0-black?logo=ffmpeg)](https://ffmpeg.org/)
 
 ![Application Screenshot](./photograph/theDownloaderScreenshot.png)
 
@@ -116,3 +117,4 @@ The project is logically divided into three main parts:
 └── requirements.txt  # Python dependencies
 
 ```
+
