@@ -120,4 +120,5 @@ The project is logically divided into three main parts:
 
 # 许可证
 
-本项目由(MIT License)[LICENSE]开源
+本项目由[MIT License](LICENSE)开源
+
