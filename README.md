@@ -1,39 +1,118 @@
-# Advanced YouTube Downloader
+# Aurora Downloader
 
-<p align="center">
-  <div class="badge-container">
-    <!-- Tech Stack Badges -->
-    <a href="https://www.electronjs.org/" title="Electron">
-      <img src="https://img.shields.io/badge/Electron-28.x-47848F?style=for-the-badge&logo=electron&logoColor=white" alt="Electron">
-    </a>
-    <a href="https://www.python.org/" title="Python">
-      <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-    </a>
-    <a href="https://flask.palletsprojects.com/" title="Flask">
-      <img src="https://img.shields.io/badge/Flask-2.3+-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
-    </a>
-    <a href="https://github.com/yt-dlp/yt-dlp" title="yt-dlp">
-      <img src="https://img.shields.io/badge/yt--dlp-LATEST-brightgreen?style=for-the-badge" alt="yt-dlp">
-    </a>
-    <br>
-    <!-- Community & License Badges (Please replace with your own links) -->
-    <a href="https://discord.gg/YOUR_INVITE_CODE" title="Join our Discord">
-      <img src="https://img.shields.io/badge/Discord-JOIN_US-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
-    </a>
-    <a href="https://opensource.org/licenses/MIT" title="MIT License">
-      <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT">
-    </a>
-  </div>
-</p>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Electron](https://img.shields.io/badge/Electron-28.2.2-blue?logo=electron)](https://www.electronjs.org/)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.3.0-black?logo=flask)](https://flask.palletsprojects.com/)
+[![yt-dlp](https://img.shields.io/badge/yt--dlp-2023.12.30-red)](https://github.com/yt-dlp/yt-dlp)
+[![FFmpeg](https://img.shields.io/badge/FFmpeg-8.0-black?logo=ffmpeg)](https://ffmpeg.org/)
 
-A modern, cross-platform YouTube video downloader built with **Electron**, **Python/Flask**, **yt-dlp**, and **FFmpeg**, featuring a powerful and flexible graphical user interface.
+![Application Screenshot](.\photograph\theDownloaderScreenshot.png)
+
+A modern, cross-platform desktop application for downloading videos, built with a powerful Python backend and a sleek Electron frontend. Aurora Downloader leverages the strength of `yt-dlp` to provide a seamless and robust video downloading experience.
 
 ---
 
-# License
+## ✨ Key Features
 
-This project is licensed under the [MIT License](LICENSE).
+*   **High-Quality Downloads**: Powered by `yt-dlp`, supporting a vast number of websites and formats.
+*   **Sleek & Modern UI**: A beautiful, "glassmorphism" inspired interface with dynamic aurora effects.
+*   **Single & Batch Downloads**: Download a single video with specific options, or queue up a list of URLs for batch processing.
+*   **Rich Format Support**: Download videos as MP4, MKV, WebM, or extract audio-only to MP3.
+*   **Customizable Settings**: Control max concurrent downloads, apply speed limits, use proxies, and more.
+*   **Download History**: Easily view and manage all your completed downloads.
+*   **Cross-Platform**: Built with Electron and Python, designed to run on Windows, macOS, and Linux.
+*   **Privacy-Focused**: All operations, configurations, and downloads happen locally on your machine. No data is collected or sent to external servers.
 
+---
 
+## 🚀 Tech Stack
 
+Aurora Downloader is a hybrid application, combining the strengths of different technologies:
 
+*   **Frontend (Renderer Process)**:
+    *   HTML5, CSS3, Vanilla JavaScript (ES6+)
+    *   No frameworks, just clean, modular code.
+*   **Desktop Shell (Main Process)**:
+    *   **Electron**: Enables the creation of a cross-platform desktop application using web technologies.
+*   **Backend (Child Process)**:
+    *   **Python**: For core processing and performance-intensive tasks.
+    *   **Flask**: A lightweight web server framework to create the API bridge between the frontend and Python.
+    *   **yt-dlp**: The heart of the downloading engine, a powerful and actively maintained fork of `youtube-dl`.
+*   **Core Dependencies**:
+    *   **FFmpeg**: Essential for merging video/audio streams and converting formats.
+
+---
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+1.  **Python**: Version 3.8 or higher.
+2.  **Node.js**: LTS version (includes `npm`).
+3.  **FFmpeg**: Must be installed and accessible from your system's PATH.
+
+This project includes a setup script that can help you verify your environment and install dependencies.
+
+---
+
+## ⚙️ Installation & Setup
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/your-username/aurora-downloader.git
+    cd aurora-downloader
+    ```
+
+2.  **Run the Automated Setup Script**:
+    This script will check your environment, create necessary directories, and install all Python and Node.js dependencies.
+    ```bash
+    python setup.py
+    ```
+    *If the script reports that FFmpeg is missing, please follow the on-screen instructions to install it for your operating system.*
+
+3.  **Start the Application**:
+    *   **For Development (with auto-reloading)**:
+        This command uses `nodemon` to watch for changes in the `electron` directory and automatically restarts the app.
+        ```bash
+        npm run dev
+        ```
+    *   **For Production Mode**:
+        This command runs the application directly.
+        ```bash
+        npm start
+        ```
+
+---
+
+## 🏗️ Project Structure
+
+The project is logically divided into three main parts:
+
+```
+/
+├── backend/          # Python Flask backend
+│   ├── app.py        # Main Flask app setup and entry point
+│   ├── api_routes.py # All API endpoint definitions
+│   ├── config.py     # Handles config.yaml loading and saving
+│   ├── downloader.py # The core yt-dlp wrapper class
+│   └── tasks.py      # Manages background download threads and state
+│
+├── electron/         # Electron main process files
+│   ├── main.js       # Main Electron application entry point
+│   ├── python-manager.js # Spawns and manages the Python backend process
+│   ├── ipc-handlers.js   # Secure handlers for renderer -> main communication
+│   └── preload.js    # Security bridge between renderer and main processes
+│
+├── frontend/         # UI files (HTML, CSS, JS)
+│   ├── index.html    # Main application window layout
+│   ├── js/           # All frontend JavaScript logic
+│   │   ├── main.js   # Application controller and state management
+│   │   ├── api.js    # Handles all communication with the Python API
+│   │   └── ui.js     # Handles all DOM manipulation and event listening
+│   └── css/          # Stylesheets
+│
+├── setup.py          # Automated environment setup script
+├── package.json      # Node.js dependencies and build scripts
+└── requirements.txt  # Python dependencies
+```

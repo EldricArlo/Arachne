@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com 'unsafe-inline';
+        font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com;
+        img-src 'self' data: http: https:;
+        connect-src http://127.0.0.1:*;
+    ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Downloader</title>
+    <!-- Remixicon and Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet (from first version) -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Scripts (from second version) -->
+    <script src="js/api.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/renderer.js" defer></script>
+</head>
+<body>
+
+    <div id="aurora-background"></div>
+    <div id="toast-container"></div>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="profile" id="profile-button">
+                <div class="profile-glow"></div>
+                <img src="https://i.pravatar.cc/60" alt="User Avatar" class="profile-avatar" id="profile-avatar-img">
+                <div class="profile-info">
+                    <span class="profile-name" id="profile-name-text">Jane Doe</span>
+                </div>
+            </div>
+            <button class="logo" aria-label="Home">
+                <i class="ri-vidicon-line"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="nav-item active" data-view="single" aria-current="page"><i class="ri-download-cloud-2-line"></i><span class="nav-text">Single Video</span></a></li>
+                <li><a href="#" class="nav-item" data-view="batch"><i class="ri-play-list-add-line"></i><span class="nav-text">Batch Download</span></a></li>
+                <li><a href="#" class="nav-item" data-view="history"><i class="ri-history-line"></i><span class="nav-text">History</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="settings-button"><i class="ri-settings-3-line"></i><span class="nav-text">Settings</span></a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <!-- View 1: Single Download (Original Style) -->
+        <section id="view-single" class="view active">
+            <div class="glass-container interactive-glow">
+                <header class="container-header">
+                    <h1>Aurora Downloader</h1>
+                    <p>Paste a video link to begin the journey</p>
+                </header>
+                <form id="url-form" class="url-input-group">
+                    <i class="ri-links-line"></i>
+                    <input type="text" id="video-url-input" placeholder="https://..." required>
+                    <button type="submit" id="get-info-btn">
+                        <span class="btn-text">Fetch Info</span>
+                        <div class="loader"></div>
+                    </button>
+                </form>
+                <div id="video-info-container" class="video-info-wrapper"></div>
+            </div>
+
+            <!-- --- MODIFICATION START --- -->
+            <!-- This new container will hold the progress indicators for downloads
+                 initiated from this page, providing immediate feedback without a view switch. -->
+            <div class="tasks-list-container" id="single-view-tasks-container">
+                <!-- Active download tasks from this view will be inserted here -->
+            </div>
+            <!-- --- MODIFICATION END --- -->
+        </section>
+
+        <!-- View 2: Batch Download (Original Style) -->
+        <section id="view-batch" class="view">
+            <div class="glass-container interactive-glow">
+                 <header class="container-header">
+                    <h1>Batch Download</h1>
+                    <p>Enter multiple video URLs, one per line.</p>
+                </header>
+                 <textarea id="batch-urls-input" placeholder="https://...&#10;https://...&#10;https://..."></textarea>
+                 <button type="button" id="start-batch-btn" class="cta-button">
+                    <span class="btn-text">Start Batch Download</span>
+                     <div class="loader"></div>
+                </button>
+            </div>
+        </section>
+
+        <!-- View 3: History (Styled like original) -->
+        <section id="view-history" class="view">
+             <div class="glass-container interactive-glow">
+                 <header class="container-header">
+                    <h1 class="history-title">Download History</h1>
+                    <button id="refresh-history-btn" class="icon-button" aria-label="Refresh history">
+                        <i class="ri-refresh-line"></i>
+                    </button>
+                </header>
+                <div class="history-list-container">
+                    <!-- History items will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Settings Modal (Original Style) -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content glass-container interactive-glow">
+            <header class="container-header">
+                <h2>Settings</h2>
+                <button id="close-settings-modal-btn" class="close-button" aria-label="Close settings"><i class="ri-close-line"></i></button>
+            </header>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label for="download-path">Downloads Folder</label>
+                    <div class="input-with-button">
+                        <input type="text" id="download-path" name="downloads_dir" readonly>
+                        <button type="button" id="select-folder-btn">Browse</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="max-concurrent-downloads">Max Concurrent Downloads</label>
+                    <input type="number" id="max-concurrent-downloads" name="max_concurrent_downloads" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label for="limit-rate">Speed Limit (e.g., 500K, 2M)</label>
+                    <input type="text" id="limit-rate" name="limit_rate" placeholder="0 for unlimited">
+                </div>
+                <div class="form-group toggle-group">
+                    <div class="toggle-switch"><input type="checkbox" id="use-aria2" name="use_aria2"><label for="use-aria2">Use Aria2c</label></div>
+                    <div class="toggle-switch"><input type="checkbox" id="embed-thumbnail" name="embed_thumbnail"><label for="embed-thumbnail">Embed Thumbnail</label></div>
+                    <div class="toggle-switch"><input type="checkbox" id="embed-subtitles" name="embed_subtitles"><label for="embed-subtitles">Embed Subtitles</label></div>
+                </div>
+                <button type="submit" class="cta-button">Save Settings</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Profile Modal (Styled like original) -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content glass-container interactive-glow">
+             <header class="container-header">
+                <h2>Edit Profile</h2>
+                <button id="close-profile-modal-btn" class="close-button" aria-label="Close profile"><i class="ri-close-line"></i></button>
+            </header>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="profile-name-input">Username</label>
+                    <input type="text" id="profile-name-input" name="userName" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="profile-avatar-input">Avatar URL or Local</label>
+                    <div class="input-with-button">
+                        <input type="text" id="profile-avatar-input" name="avatarUrl" placeholder="https://...">
+                        <button type="button" id="select-local-avatar-btn">Local</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Avatar Preview Position</label>
+                    <div class="radio-group">
+                        <input type="radio" id="pos-top" name="avatarPosition" value="top"><label for="pos-top">Top</label>
+                        <input type="radio" id="pos-center" name="avatarPosition" value="center" checked><label for="pos-center">Center</label>
+                        <input type="radio" id="pos-bottom" name="avatarPosition" value="bottom"><label for="pos-bottom">Bottom</label>
+                    </div>
+                </div>
+                <button type="submit" class="cta-button">Save Profile</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
