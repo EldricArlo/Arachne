@@ -7,6 +7,13 @@
 [![yt-dlp](https://img.shields.io/badge/yt--dlp-2023.12.30-red)](https://github.com/yt-dlp/yt-dlp)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-8.0-black?logo=ffmpeg)](https://ffmpeg.org/)
 
+# 注意事项
+
+1. 再次检查了代码的逻辑；
+2. 统一了注释，将注释全部设置为English；
+3. 调整了前后端的耦合性程度；
+4. 更新了各个解释性文件；
+
 ![Application Screenshot](./photograph/theDownloaderScreenshot.png)
 
 A modern, cross-platform desktop application for downloading videos, built with a powerful Python backend and a sleek Electron frontend. Aurora Downloader leverages the strength of `yt-dlp` to provide a seamless and robust video downloading experience.
@@ -117,3 +124,4 @@ The project is logically divided into three main parts:
 └── requirements.txt  # Python dependencies
 
 ```
+
