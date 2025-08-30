@@ -1,0 +1,632 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- 1. Design System Root Variables --- */
+:root {
+    --font-family: 'Inter', sans-serif;
+    /* Aurora Color Palette */
+    --bg-start: #0f0c29;
+    --bg-mid: #302b63;
+    --bg-end: #24243e;
+    --aurora-1: #7f5af0;
+    --aurora-2: #2cb67d;
+    --aurora-3: #f05a5a;
+    --text-primary: #e6e6fa;
+    --text-secondary: #a0a0c0;
+    /* Glass Material Properties */
+    --glass-bg: radial-gradient(circle at center, rgba(44, 41, 75, 0.25), rgba(44, 41, 75, 0.15));
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow-core: rgba(15, 12, 41, 0.5);
+    --blur-strength: 24px;
+    /* Interaction & Animation */
+    --accent-primary: #7f5af0;
+    --accent-hover: #987ff3;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --transition-fast: 0.2s ease-out;
+    --transition-medium: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Physics-based curve */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* --- 2. Dynamic Aurora Background --- */
+#aurora-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 10% 20%, var(--aurora-1), transparent 30%), radial-gradient(circle at 80% 30%, var(--aurora-2), transparent 40%), radial-gradient(circle at 50% 90%, var(--aurora-3), transparent 35%);
+    filter: blur(150px);
+    opacity: 0.4;
+    animation: move-aurora 30s infinite alternate ease-in-out;
+}
+
+@keyframes move-aurora {
+    0% {
+        transform: rotate(0deg) scale(1.2);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1.5);
+    }
+}
+
+/* --- 3. Aurora Glass Component Base --- */
+.glass-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-strength));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 40px -10px var(--glass-shadow-core);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.interactive-glow::before {
+    content: '';
+    position: absolute;
+    top: var(--mouse-y, 50%);
+    left: var(--mouse-x, 50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 60%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.interactive-glow:hover::before {
+    opacity: 1;
+}
+
+/* --- 4. "Crystal Prism" Sidebar --- */
+.sidebar {
+    width: 80px;
+    height: 100vh;
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width var(--transition-medium);
+    background: rgba(20, 18, 50, 0.3);
+    backdrop-filter: blur(calc(var(--blur-strength) + 10px));
+    border-right: 1px solid var(--glass-border);
+    box-shadow: 8px 0 30px -10px var(--glass-shadow-core);
+}
+
+.sidebar:hover {
+    width: 300px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    position: relative;
+    padding: 0 1.5rem;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    left: 1.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.sidebar:hover .profile {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    transition-delay: 0.1s;
+}
+
+.profile-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.profile-glow {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent-primary);
+    animation: pulse-glow 3s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.profile-status {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--text-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Default: Centered */
+    transition: var(--transition-medium);
+}
+
+.sidebar:hover .logo {
+    left: auto;
+    right: 1.5rem;
+    transform: translateY(-50%) rotate(-10deg) scale(1.1);
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+    margin-top: 2rem;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-footer {
+    padding-top: 1rem;
+    margin-top: auto;
+    border-top: 1px solid var(--glass-border);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+    margin: 0.5rem auto;
+    width: 50px;
+    height: 50px;
+    /* Make it a square for consistency */
+    padding: 0;
+    /* Remove padding for precise control */
+    justify-content: center;
+    transition: background var(--transition-fast), color var(--transition-fast), width var(--transition-medium), height var(--transition-medium);
+}
+
+.sidebar:hover .nav-item {
+    width: calc(100% - 3rem);
+    height: auto;
+    justify-content: flex-start;
+    padding: 0.8rem 1.25rem;
+}
+
+/* FIX #1: Explicitly remove gap in collapsed state */
+.sidebar:not(:hover) .nav-item {
+    gap: 0;
+}
+
+.nav-item:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+    color: white;
+    font-weight: 600;
+    background: var(--accent-primary);
+    box-shadow: 0 4px 15px -5px var(--accent-primary);
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: meteor-pass 4s infinite ease-in-out;
+}
+
+@keyframes meteor-pass {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+.nav-item i {
+    font-size: 1.5rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.nav-text {
+    opacity: 0;
+    transform: translate3d(-15px, 0, 0);
+    /* Add max-width to the transition for smooth sizing */
+    transition: opacity 0.4s ease, transform 0.4s ease, max-width var(--transition-medium);
+    white-space: nowrap;
+    transform-origin: left center;
+    max-width: 0;
+    /* Initially takes no space */
+    overflow: hidden;
+    /* Hide content during transition */
+}
+
+.sidebar:hover .nav-text {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    max-width: 200px;
+    /* Allow it to take space */
+}
+
+/* Staggered entry animation */
+.sidebar:hover .nav-item:nth-child(1) .nav-text {
+    transition-delay: 0.1s;
+}
+
+.sidebar:hover .nav-item:nth-child(2) .nav-text {
+    transition-delay: 0.15s;
+}
+
+.sidebar:hover .nav-item:nth-child(3) .nav-text {
+    transition-delay: 0.2s;
+}
+
+.sidebar:hover .sidebar-footer .nav-item .nav-text {
+    transition-delay: 0.25s;
+}
+
+/* --- 5. Main Content & Views --- */
+.main-content {
+    flex-grow: 1;
+    padding: 3rem;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.view {
+    display: none;
+    animation: fade-in 0.6s ease;
+}
+
+.view.active {
+    display: block;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.container-header h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+.container-header p {
+    color: var(--text-secondary);
+}
+
+/* --- 6. Forms & Buttons --- */
+.url-input-group {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.url-input-group:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px -5px var(--accent-primary);
+}
+
+.url-input-group i {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin: 0 1rem;
+}
+
+input,
+select,
+textarea {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-family);
+    padding: 0.75rem 0;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    margin-bottom: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+}
+
+button,
+.cta-button {
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.85rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+button:hover,
+.cta-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px -6px var(--accent-primary);
+}
+
+button:disabled {
+    background: var(--text-secondary);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.cta-button {
+    width: 100%;
+    text-align: center;
+}
+
+.loader {
+    display: none;
+}
+
+button.loading .loader {
+    display: flex;
+    gap: 6px;
+}
+
+button.loading .btn-text {
+    display: none;
+}
+
+.loader .dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.loader .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1.0);
+    }
+}
+
+/* --- 7. Video Info Display --- */
+.video-info-card {
+    display: flex;
+    gap: 1.5rem;
+    text-align: left;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    animation: slide-up 0.6s ease-out;
+}
+
+.video-info-thumb {
+    width: 180px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.video-info-details {
+    flex: 1;
+}
+
+.video-info-details h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+}
+
+.video-info-details p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.video-info-details .cta-button {
+    margin-top: 1rem;
+    width: auto;
+    padding: 0.6rem 1.2rem;
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- 8. Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 12, 41, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-medium), visibility var(--transition-medium);
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    transform: scale(0.9);
+    transition: transform var(--transition-medium);
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-content .container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-button:hover {
+    color: var(--text-primary);
+    transform: rotate(90deg);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px -5px var(--accent-primary);
+}

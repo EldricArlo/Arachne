@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Downloader</title>
+    <!-- Remixicon for high-quality icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Defer JS loading until after DOM parsing -->
+    <script src="api.js" defer></script>
+    <script src="ui.js" defer></script>
+    <script src="main.js" defer></script>
+    <script src="renderer.js" defer></script>
+</head>
+<body>
+
+    <!-- The dynamic, animated aurora effect sits in the background -->
+    <div id="aurora-background"></div>
+
+    <!-- 1. Expandable "Crystal Prism" Sidebar -->
+    <aside class="sidebar">
+        <!-- The header is now a robust flex container to manage its complex children -->
+        <div class="sidebar-header">
+            <div class="profile">
+                <div class="profile-glow"></div>
+                <img src="https://i.pravatar.cc/60" alt="User Avatar" class="profile-avatar">
+                <div class="profile-info">
+                    <span class="profile-name">Jane Doe</span>
+                    <span class="profile-status">Online</span>
+                </div>
+            </div>
+            <button class="logo" aria-label="Home">
+                <i class="ri-vidicon-line"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="#" class="nav-item active" data-view="single" aria-current="page">
+                        <i class="ri-download-cloud-2-line"></i>
+                        <span class="nav-text">Single Video</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-view="batch">
+                        <i class="ri-play-list-add-line"></i>
+                        <span class="nav-text">Batch Download</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-view="history">
+                        <i class="ri-history-line"></i>
+                        <span class="nav-text">History</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="settings-button">
+                <i class="ri-settings-3-line"></i>
+                <span class="nav-text">Settings</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. Main Content "Information Floe" -->
+    <main class="main-content">
+        <section id="view-single" class="view active">
+            <div class="glass-container interactive-glow">
+                <header class="container-header">
+                    <h1>Aurora Downloader</h1>
+                    <p>Paste a video link to begin the journey</p>
+                </header>
+                <form id="url-form" class="url-input-group">
+                    <i class="ri-links-line"></i>
+                    <input type="url" id="video-url-input" placeholder="https://..." required>
+                    <button type="submit" id="get-info-btn">
+                        <span class="btn-text">Fetch Info</span>
+                        <div class="loader">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </button>
+                </form>
+                <!-- This container is now a dedicated area for dynamic content -->
+                <div id="video-info-container" class="video-info-wrapper">
+                    <!-- Dynamic content from ui.js will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="view-batch" class="view">
+            <div class="glass-container interactive-glow">
+                 <header class="container-header">
+                    <h1>Batch Download</h1>
+                    <p>Enter multiple video URLs, one per line.</p>
+                </header>
+                 <textarea id="batch-urls-input" placeholder="https://...&#10;https://...&#10;https://..."></textarea>
+                 <button type="button" id="start-batch-btn" class="cta-button">
+                    <span class="btn-text">Start Batch Download</span>
+                     <div class="loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </button>
+            </div>
+        </section>
+
+         <section id="view-history" class="view">
+            <div class="glass-container interactive-glow">
+                 <header class="container-header">
+                    <h1>Download History</h1>
+                    <p>Your past downloads will appear here.</p>
+                </header>
+                <div class="history-list">
+                    <!-- History items will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 3. Settings Modal -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content glass-container interactive-glow">
+            <header class="container-header">
+                <h2>Settings</h2>
+                <button id="close-modal-btn" class="close-button" aria-label="Close settings">
+                    <i class="ri-close-line"></i>
+                </button>
+            </header>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label for="download-path">Default Download Path</label>
+                    <input type="text" id="download-path" name="downloadPath" placeholder="/Users/Jane/Downloads">
+                </div>
+                <div class="form-group">
+                    <label for="video-quality">Default Video Quality</label>
+                    <select id="video-quality" name="videoQuality">
+                        <option value="best">Best Available</option>
+                        <option value="1080p">1080p</option>
+                        <option value="720p">720p</option>
+                        <option value="480p">480p</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label for="max-concurrent">Max Concurrent Downloads</label>
+                    <input type="number" id="max-concurrent" name="maxConcurrent" min="1" max="10" value="3">
+                </div>
+                <button type="submit" class="cta-button">Save Settings</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
