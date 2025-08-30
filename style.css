@@ -1,0 +1,729 @@
+/* --- 1. 全局与基本设置 --- */
+/* 使用 @import 规则从 Google Fonts 服务导入 'Inter' 字体，包含了多种字重 (400, 500, 600, 700) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* :root 伪类用于匹配文档的根元素，在这里用来定义全局 CSS 变量，方便统一管理和修改 */
+:root {
+    /* 定义变量 --bg-color 为深灰色，用作页面背景色 */
+    --bg-color: #121212;
+    /* 定义面板的背景色 */
+    --panel-bg-color: #1E1E1E;
+    /* 定义边框颜色，使用 rgba 设置了透明度，使其更柔和 */
+    --border-color: rgba(255, 255, 255, 0.08);
+    /* 定义主要文本颜色 */
+    --text-primary: #EAEAEA;
+    /* 定义次要文本颜色，如提示、副标题等 */
+    --text-secondary: #8A8A8A;
+    /* 定义强调色，用于高亮、焦点等状态 */
+    --accent-color: #FF8A00;
+    /* 定义面板的圆角大小 */
+    --panel-radius: 24px;
+    /* 定义元素之间的标准间距 */
+    --gap: 16px;
+    /* 定义过渡动画的速度 */
+    --transition-speed: 0.3s;
+}
+
+/* 通配符选择器 (*)，选中所有 HTML 元素 */
+* {
+    /* 移除所有元素的默认外边距 */
+    margin: 0;
+    /* 移除所有元素的默认内边距 */
+    padding: 0;
+    /* 设置盒模型为 border-box，元素的 width 和 height 将包含 padding 和 border */
+    box-sizing: border-box;
+}
+
+/* 设置 body 元素的全局样式 */
+body {
+    /* 设置全局字体，优先使用 'Inter'，如果不可用则使用无衬线字体 */
+    font-family: 'Inter', sans-serif;
+    /* 使用变量设置背景色 */
+    background-color: var(--bg-color);
+    /* 使用变量设置默认文本颜色 */
+    color: var(--text-primary);
+    /* 使用 Flexbox 布局 */
+    display: flex;
+    /* 在主轴（水平方向）上居中对齐 */
+    justify-content: center;
+    /* 在交叉轴（垂直方向）上居中对齐 */
+    align-items: center;
+    /* 设置最小高度为视口高度的100%，确保内容在垂直方向上铺满或居中 */
+    min-height: 100vh;
+    /* 在 body 四周添加内边距，使用变量作为值 */
+    padding: var(--gap);
+}
+
+/* --- 2. 主容器布局 (桌面端默认) --- */
+/* 设置主容器的样式 */
+.main-container {
+    /* 宽度占满父容器 */
+    width: 100%;
+    /* 设置最大宽度，防止在大屏幕上内容过宽 */
+    max-width: 1600px;
+    /* 高度为视口高度的90% */
+    height: 90vh;
+    /* 设置最大高度 */
+    max-height: 900px;
+    /* 使用 Grid 布局 */
+    display: grid;
+    /* 定义两列：第一列固定宽度90px，第二列占据剩余空间 (1fr) */
+    grid-template-columns: 90px 1fr;
+    /* 设置网格项之间的间距 */
+    gap: var(--gap);
+}
+
+/* --- 3. 页面切换逻辑样式 --- */
+/* 默认情况下，所有页面内容都是隐藏的 */
+.page-content {
+    display: none;
+    /* 确保页面内容区域高度占满其网格单元 */
+    height: 100%;
+}
+
+/* 当页面内容元素拥有 .active 类时，它将显示出来 */
+.page-content.active {
+    /* 使用 Grid 布局来显示。这是一个关键修复，如果页面本身需要作为网格容器，使用 grid 比 block 更合适 */
+    display: grid;
+}
+
+/* --- 辅助类 --- */
+/* "Screen Reader Only" 类，用于在视觉上隐藏元素，但屏幕阅读器仍然可以访问，以增强可访问性 */
+.sr-only {
+    position: absolute;
+    /* 绝对定位，脱离文档流 */
+    width: 1px;
+    /* 宽高设为1像素 */
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    /* 移出屏幕可见区域 */
+    overflow: hidden;
+    /* 隐藏溢出的内容 */
+    clip: rect(0, 0, 0, 0);
+    /* 裁剪元素，使其不可见 */
+    white-space: nowrap;
+    /* 防止文本换行 */
+    border: 0;
+    /* 移除边框 */
+}
+
+/* --- 4. 通用面板和标题样式 --- */
+/* .panel 类定义了所有卡片/面板的基本样式 */
+.panel {
+    /* 使用变量设置背景色 */
+    background-color: var(--panel-bg-color);
+    /* 使用变量设置圆角 */
+    border-radius: var(--panel-radius);
+    /* 添加1像素的边框，使用变量设置颜色 */
+    border: 1px solid var(--border-color);
+    /* 设置内边距 */
+    padding: 20px;
+}
+
+/* 面板内标题的样式 */
+.panel-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    /* 使用次要文本颜色 */
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    /* 文本转换为大写 */
+    letter-spacing: 0.5px;
+    /* 增加字母间距 */
+}
+
+/* --- 5. 左侧导航栏 --- */
+/* 左侧边栏容器样式 */
+.left-sidebar {
+    display: flex;
+    /* 使用 Flexbox 布局 */
+    flex-direction: column;
+    /* 子元素垂直排列 */
+    justify-content: space-between;
+    /* 子元素两端对齐，中间空间平均分配 */
+    align-items: center;
+    /* 子元素在交叉轴（水平）上居中 */
+    padding: 24px 0;
+    /* 设置上下内边距 */
+    /* 为宽度和高度变化添加平滑的过渡效果 */
+    transition: width var(--transition-speed) ease, height var(--transition-speed) ease;
+}
+
+/* Logo 样式 */
+.logo {
+    font-size: 28px;
+}
+
+/* 导航列表样式 */
+.sidebar-nav ul {
+    list-style: none;
+    /* 移除列表项的默认符号（点） */
+    margin-top: 40px;
+}
+
+/* 导航项（按钮）样式 */
+.sidebar-nav .nav-item {
+    margin: 20px 0;
+    /* 设置上下外边距 */
+    cursor: pointer;
+    /* 鼠标悬停时显示手型光标 */
+    background: none;
+    /* 无背景 */
+    border: none;
+    /* 无边框 */
+    color: var(--text-secondary);
+    /* 默认使用次要文本颜色 */
+    font-size: 24px;
+    /* 为颜色变化添加平滑的过渡效果 */
+    transition: color 0.2s ease;
+    padding: 0;
+    /* 移除默认内边距 */
+}
+
+/* 导航项处于激活或悬停状态时的样式 */
+.sidebar-nav .nav-item.active,
+.sidebar-nav .nav-item:hover {
+    color: var(--text-primary);
+    /* 颜色变为主要文本颜色 */
+}
+
+/* 导航项获得焦点时的样式（用于键盘导航） */
+.sidebar-nav .nav-item:focus {
+    /* 添加一个2像素宽的强调色轮廓 */
+    outline: 2px solid var(--accent-color);
+    outline-offset: 4px;
+    /* 轮廓与元素边缘的距离 */
+    border-radius: 4px;
+    /* 为轮廓添加圆角 */
+}
+
+/* 侧边栏底部容器样式 */
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    /* 垂直排列 */
+    align-items: center;
+    /* 水平居中 */
+    gap: 20px;
+    /* 子元素之间的间距 */
+}
+
+/* 下载按钮和个人资料区域的通用样式 */
+.download-btn,
+.profile {
+    width: 48px;
+    height: 48px;
+    background-color: #2c2c2c;
+    border-radius: 50%;
+    /* 制作成圆形 */
+    display: grid;
+    /* 使用 Grid 布局 */
+    place-items: center;
+    /* Grid 布局中实现水平垂直居中的简写 */
+    font-size: 22px;
+    cursor: pointer;
+    border: none;
+    color: var(--text-primary);
+}
+
+/* 个人资料图片样式 */
+.profile img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* 确保图片也是圆形的 */
+}
+
+/* 下载按钮和个人资料区域获得焦点时的样式 */
+.download-btn:focus,
+.profile:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* --- 6. AI 生成器页面 (#page-generator) 内部布局 --- */
+/* 当生成器页面激活时，它采用两列 Grid 布局 */
+#page-generator.active {
+    display: grid;
+    /* 第一列占满剩余空间，第二列固定280px宽 */
+    grid-template-columns: 1fr 280px;
+    gap: var(--gap);
+    height: 100%;
+}
+
+/* 生成器左侧主区域的布局 */
+.generator-layout {
+    display: grid;
+    /* 再次使用 Grid 布局，分为两列，比例为 3:5 */
+    grid-template-columns: 3fr 5fr;
+    gap: var(--gap);
+    height: 100%;
+}
+
+/* 左侧的提示词输入面板 */
+.prompt-panel {
+    display: flex;
+    flex-direction: column;
+    /* 内部元素垂直排列 */
+    align-items: flex-start;
+    /* 交叉轴（水平）上从头开始对齐 */
+    gap: 16px;
+    padding: 24px;
+}
+
+/* 添加图标按钮样式 */
+.add-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    color: var(--text-primary);
+}
+
+/* 图标获得焦点时的可见样式 */
+.add-icon:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* 提示词输入框样式 */
+.prompt-panel textarea {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 16px;
+    width: 100%;
+    flex-grow: 1;
+    /* 占据所有可用的垂直空间 */
+    resize: none;
+    /* 禁止用户调整大小 */
+    font-family: 'Inter', sans-serif;
+    /* 继承字体 */
+    line-height: 1.6;
+    /* 设置行高，增加可读性 */
+}
+
+/* 文本域获得焦点时的可见样式 */
+.prompt-panel textarea:focus-visible {
+    outline: 1px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+/* 图片显示区域的堆叠容器 */
+.display-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    height: 100%;
+}
+
+/* 搜索栏样式 */
+.search-bar {
+    flex-shrink: 0;
+    /* 防止在 Flex 容器中被压缩 */
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+/* 搜索栏图标样式 */
+.search-bar i {
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-right: 12px;
+}
+
+/* 搜索输入框样式 */
+.search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 16px;
+    width: 100%;
+}
+
+/* 搜索输入框获得焦点时的可见样式 */
+.search-bar input:focus-visible {
+    outline: 1px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+/* 图片显示区域面板 */
+.image-display {
+    padding: 0;
+    /* 移除内边距，让图片填满 */
+    overflow: hidden;
+    /* 隐藏溢出的部分，确保图片在圆角内 */
+    flex-grow: 1;
+    /* 占据所有可用的垂直空间 */
+    min-height: 0;
+    /* Flexbox 布局中的一个 hack，用于防止子元素溢出 */
+}
+
+/* 图片本身样式 */
+.image-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 裁剪图片以填充容器，同时保持宽高比 */
+}
+
+/* 样式选择器面板 */
+.style-chooser {
+    flex-shrink: 0;
+    /* 防止被压缩 */
+}
+
+/* 标签容器 */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    /* 允许标签换行 */
+    gap: 8px;
+}
+
+/* 单个标签按钮的样式 */
+.tags .tag {
+    background-color: #333;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    /* 为所有属性的变化添加平滑过渡 */
+    transition: all 0.2s ease;
+}
+
+/* 标签悬停或激活时的样式 */
+.tags .tag:hover,
+.tags .tag.active {
+    background-color: #444;
+    color: var(--text-primary);
+}
+
+/* 标签获得焦点时的可见样式 */
+.tags .tag:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* 生成器页面最右侧的侧边栏 */
+.generator-right-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+/* 历史记录面板 */
+.history-panel {
+    flex-grow: 1;
+    /* 占据可用垂直空间 */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 历史记录项的容器 */
+.history-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+/* 单个历史记录项（按钮） */
+.history-item {
+    background-color: #333;
+    flex-grow: 1;
+    /* 每个项平均分配垂直空间 */
+    border-radius: 16px;
+    position: relative;
+    /* 用于定位伪元素 */
+    cursor: pointer;
+    border: 2px solid transparent;
+    /* 预留边框空间，防止激活时跳动 */
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+    /* 隐藏背景图的溢出部分 */
+    background-size: cover;
+    /* 背景图覆盖整个元素 */
+    background-position: center;
+    /* 背景图居中 */
+    min-height: 80px;
+    /* 设置最小高度 */
+}
+
+/* 使用 ::before 伪元素创建左上角的数字角标 */
+.history-item::before {
+    /* attr(data-index) 会获取 HTML 元素上 data-index 属性的值 */
+    content: '0' attr(data-index);
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 半透明背景 */
+    color: var(--text-primary);
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 为特定的历史记录项设置背景图片 */
+.history-item:nth-child(1) {
+    background-image: url('https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/03.jpg');
+}
+
+.history-item:nth-child(2) {
+    background-image: url('https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/02.jpg');
+}
+
+.history-item:nth-child(3) {
+    background-image: url('https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/04.jpg');
+}
+
+/* 历史记录项激活时的样式 */
+.history-item.active {
+    border-color: var(--accent-color);
+    /* 边框变为强调色 */
+}
+
+/* 历史记录项获得焦点时的可见样式 */
+.history-item:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* 灵感面板 */
+.inspiration-panel {
+    height: 200px;
+}
+
+/* 灵感卡片堆叠效果的容器 */
+.card-stack {
+    position: relative;
+    /* 作为绝对定位子元素的参照物 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+}
+
+/* 单个卡片样式 */
+.card {
+    width: 100px;
+    height: 120px;
+    border-radius: 16px;
+    position: absolute;
+    /* 绝对定位，实现堆叠效果 */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+    /* 为 transform 属性添加过渡 */
+}
+
+/* 卡片悬停时向上移动 */
+.card:hover {
+    transform: translateY(-10px) !important;
+    /* !important 确保覆盖内联 transform */
+}
+
+/* 第一个卡片的具体样式 */
+.card-1 {
+    background-image: url('https://images.unsplash.com/photo-1620712943543-290d242c3862?auto=format&fit=crop&q=60&w=100');
+    transform: translateX(30px) rotate(8deg);
+    /* 向右移动并旋转 */
+    z-index: 3;
+    /* 堆叠顺序最高，在最上面 */
+}
+
+/* 第二个卡片的具体样式 */
+.card-2 {
+    background-image: url('https://images.unsplash.com/photo-1581092921449-42a1e0952a65?auto=format&fit=crop&q=60&w=100');
+    z-index: 2;
+    /* 堆叠顺序居中 */
+}
+
+/* 第三个卡片的具体样式 */
+.card-3 {
+    background-image: url('https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?auto=format&fit=crop&q=60&w=100');
+    transform: translateX(-30px) rotate(-8deg);
+    /* 向左移动并反向旋转 */
+    z-index: 1;
+    /* 堆叠顺序最低，在最下面 */
+}
+
+/* 用于非生成器页面的占位符样式 */
+.placeholder-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.placeholder-page h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.placeholder-page p {
+    color: var(--text-secondary);
+}
+
+/* ======================================================= */
+/* --- 7. 【核心】响应式设计调整 (Responsive Design) --- */
+/* ======================================================= */
+
+/* 断点1: 平板电脑和小型桌面端 (屏幕宽度小于等于 1200px) */
+@media (max-width: 1200px) {
+
+    /* 主容器布局调整 */
+    .main-container {
+        /* 从列式布局变为行式布局，先是导航栏再是内容 */
+        grid-template-columns: 1fr;
+        /* 只有一列 */
+        grid-template-rows: auto 1fr;
+        /* 第一行高度自适应，第二行占满剩余空间 */
+        height: auto;
+        /* 高度由内容决定 */
+        max-height: none;
+        /* 移除最大高度限制 */
+    }
+
+    /* 左侧边栏变为顶部导航栏 */
+    .left-sidebar {
+        width: 100%;
+        height: 80px;
+        flex-direction: row;
+        /* 子元素水平排列 */
+        justify-content: space-between;
+        /* 两端对齐 */
+        padding: 0 24px;
+    }
+
+    /* 调整导航栏内部元素的排列方式 */
+    .sidebar-top,
+    .sidebar-bottom,
+    .sidebar-nav ul {
+        flex-direction: row;
+        /* 都变为水平排列 */
+        align-items: center;
+        /* 垂直居中 */
+        gap: 20px;
+    }
+
+    .sidebar-nav ul {
+        margin-top: 0;
+        /* 移除顶部外边距 */
+    }
+
+    .sidebar-nav .nav-item {
+        margin: 0;
+        /* 移除外边距 */
+    }
+
+    /* 生成器页面布局调整 */
+    #page-generator.active {
+        /* 从左右两列变为上下两行 */
+        grid-template-columns: 1fr;
+        /* 只有一列 */
+        grid-template-rows: auto auto;
+        /* 两行高度都自适应 */
+    }
+
+    /* 历史记录项容器调整 */
+    .history-items {
+        flex-direction: row;
+        /* 水平排列 */
+        overflow-x: auto;
+        /* 内容超出时可以水平滚动 */
+        padding-bottom: 10px;
+        /* 为滚动条留出一些空间 */
+    }
+
+    /* 历史记录项调整 */
+    .history-item {
+        flex-shrink: 0;
+        /* 防止项目被压缩，保持其原始宽度 */
+        width: 120px;
+        min-height: 80px;
+    }
+}
+
+/* 断点2: 移动设备 (屏幕宽度小于等于 768px) */
+@media (max-width: 768px) {
+
+    /* 调整全局变量以适应小屏幕 */
+    :root {
+        --gap: 12px;
+        --panel-radius: 16px;
+    }
+
+    body {
+        padding: var(--gap);
+        /* 使用更小的内边距 */
+    }
+
+    /* 隐藏主导航和下载按钮，以节省空间 */
+    .sidebar-nav,
+    .download-btn {
+        display: none;
+    }
+
+    /* 调整顶部导航栏的高度和对齐方式 */
+    .left-sidebar {
+        height: 70px;
+        justify-content: space-between;
+    }
+
+    /* 生成器主要布局调整 */
+    .generator-layout {
+        /* 从左右两列变为上下两行 */
+        grid-template-columns: 1fr;
+        /* 只有一列 */
+        grid-template-rows: 250px 1fr;
+        /* 第一行固定250px高，第二行占满剩余空间 */
+    }
+
+    .history-items {
+        gap: 8px;
+        /* 减小历史记录项的间距 */
+    }
+
+    /* 灵感面板高度自适应 */
+    .inspiration-panel {
+        height: auto;
+    }
+
+    /* 灵感卡片堆叠容器调整 */
+    .card-stack {
+        flex-wrap: wrap;
+        /* 允许卡片换行 */
+        height: auto;
+        justify-content: flex-start;
+        /* 从左开始排列 */
+        gap: 8px;
+    }
+
+    /* 灵感卡片调整 */
+    .card {
+        position: static;
+        /* 取消绝对定位 */
+        transform: none !important;
+        /* 移除所有 transform 效果 */
+        width: 80px;
+        height: 100px;
+    }
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!-- lang="zh-CN" 声明页面主要语言为简体中文 -->
+<html lang="zh-CN">
+
+<head>
+    <!-- 声明文档使用的字符编码为 UTF-8，以支持中文字符 -->
+    <meta charset="UTF-8">
+    <!-- 设置视口，width=device-width 表示宽度等于设备宽度，initial-scale=1.0 表示初始缩放比例为1.0。这是移动端响应式设计的必需品 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网页标题 -->
+    <title>Responsive AI Interface</title>
+    <!-- 链接外部 CSS 样式表 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 链接外部字体图标库 Remixicon 的 CSS 文件 -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 主容器，包裹整个应用界面 -->
+    <div class="main-container">
+        <!-- 左侧边栏，使用 <aside> 语义化标签表示侧边内容。role="navigation" 告诉辅助技术这是一个导航区域 -->
+        <aside class="left-sidebar panel" role="navigation" aria-label="主导航">
+            <!-- 侧边栏顶部区域 -->
+            <div class="sidebar-top">
+                <!-- Logo 区域，aria-label 提供了一个可访问的名称 -->
+                <div class="logo" aria-label="应用主页">
+                    <!-- 使用 Remixicon 的图标，aria-hidden="true" 表示此图标纯属装饰，屏幕阅读器应忽略 -->
+                    <i class="ri-sparkling-2-fill" aria-hidden="true"></i>
+                </div>
+                <!-- 导航链接容器，使用 <nav> 语义化标签 -->
+                <nav class="sidebar-nav">
+                    <!-- 无序列表，用于组织导航项 -->
+                    <ul>
+                        <li>
+                            <!-- 导航按钮。data-target="page-generator" 用于JS关联要显示的内容区域 -->
+                            <!-- aria-controls="page-generator" 明确指出此按钮控制哪个元素 -->
+                            <!-- aria-selected="true" 表示此项当前被选中 -->
+                            <button class="nav-item active" data-target="page-generator" aria-controls="page-generator"
+                                aria-selected="true">
+                                <i class="ri-compass-3-line" aria-hidden="true"></i>
+                                <!-- class="sr-only" 的 span 用于为屏幕阅读器提供按钮的文本描述，但在视觉上是隐藏的 -->
+                                <span class="sr-only">生成器</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="page-gallery" aria-controls="page-gallery"
+                                aria-selected="false">
+                                <i class="ri-gallery-line" aria-hidden="true"></i>
+                                <span class="sr-only">画廊</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="page-favorites" aria-controls="page-favorites"
+                                aria-selected="false">
+                                <i class="ri-heart-3-line" aria-hidden="true"></i>
+                                <span class="sr-only">收藏</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="nav-item" data-target="page-settings" aria-controls="page-settings"
+                                aria-selected="false">
+                                <i class="ri-settings-3-line" aria-hidden="true"></i>
+                                <span class="sr-only">设置</span>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- 侧边栏底部区域 -->
+            <div class="sidebar-bottom">
+                <!-- 下载按钮 -->
+                <button class="download-btn" aria-label="下载当前图片">
+                    <i class="ri-download-2-line" aria-hidden="true"></i>
+                </button>
+                <!-- 用户个人资料按钮 -->
+                <button class="profile" aria-label="用户菜单">
+                    <img src="https://i.pravatar.cc/40" alt="用户头像">
+                </button>
+            </div>
+        </aside>
+
+        <!-- 主要内容区域的包装器 -->
+        <div class="content-wrapper">
+            <!-- AI 生成器页面。role="main" 表示这是页面的主要内容。aria-labelledby 指向一个提供此区域标题的元素 -->
+            <main id="page-generator" class="page-content active" role="main" aria-labelledby="generator-heading">
+                <!-- 为 main 区域提供一个对屏幕阅读器可见的标题 -->
+                <h1 id="generator-heading" class="sr-only">AI 图像生成器</h1>
+                <!-- 生成器页面的内部布局容器 -->
+                <div class="generator-layout">
+                    <!-- 提示词输入面板，<section> 定义了一个独立的区域，aria-labelledby 指向其标题 -->
+                    <section class="prompt-panel panel" aria-labelledby="prompt-heading">
+                        <!-- 为 section 提供一个对屏幕阅读器可见的标题 -->
+                        <h2 id="prompt-heading" class="sr-only">输入提示词</h2>
+                        <button class="add-icon" aria-label="添加新提示词">
+                            <i class="ri-add-line" aria-hidden="true"></i>
+                        </button>
+                        <textarea placeholder="在此输入您的提示词..." aria-label="图像生成提示词"></textarea>
+                    </section>
+                    <!-- 右侧的显示堆叠区域 -->
+                    <div class="display-stack">
+                        <!-- 搜索栏面板 -->
+                        <div class="search-bar panel">
+                            <i class="ri-search-line" aria-hidden="true"></i>
+                            <!-- <label> 标签与 <input> 关联，增强可访问性 -->
+                            <label for="search-input" class="sr-only">搜索图片</label>
+                            <input id="search-input" type="text" placeholder="搜索..." aria-label="搜索图片">
+                        </div>
+                        <!-- 图片显示面板 -->
+                        <div class="image-display panel">
+                            <img src="https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/meta-image.jpg"
+                                alt="AI 生成的示例图片"> <!-- alt 属性为图片提供替代文本 -->
+                        </div>
+                        <!-- 样式选择器面板 -->
+                        <section class="style-chooser panel" aria-labelledby="styles-heading">
+                            <h2 id="styles-heading" class="panel-title">选择样式</h2>
+                            <!-- 标签容器，role="list" 表示这是一个列表 -->
+                            <div class="tags" role="list">
+                                <!-- 每个按钮都是一个列表项，role="listitem" -->
+                                <button class="tag" role="listitem">神话</button>
+                                <button class="tag" role="listitem">动漫</button>
+                                <button class="tag" role="listitem">奇幻</button>
+                                <button class="tag" role="listitem">摄影</button>
+                                <button class="tag" role="listitem">素描</button>
+                                <button class="tag active" role="listitem">3D 样式</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- 生成器页面最右侧的侧边栏 -->
+                <aside class="generator-right-sidebar">
+                    <!-- 历史记录面板 -->
+                    <section class="history-panel panel" aria-labelledby="history-heading">
+                        <h2 id="history-heading" class="panel-title">历史记录</h2>
+                        <div class="history-items">
+                            <!-- 历史记录项按钮，data-index 用于 CSS 生成角标 -->
+                            <button class="history-item active" data-index="01" aria-label="历史记录 01">
+                                <!-- 同样使用 sr-only 提供详细的文本描述 -->
+                                <span class="sr-only">历史记录 1</span>
+                            </button>
+                            <button class="history-item" data-index="02" aria-label="历史记录 02">
+                                <span class="sr-only">历史记录 2</span>
+                            </button>
+                            <button class="history-item" data-index="03" aria-label="历史记录 03">
+                                <span class="sr-only">历史记录 3</span>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- 灵感面板 -->
+                    <section class="inspiration-panel panel" aria-labelledby="inspiration-heading">
+                        <h2 id="inspiration-heading" class="panel-title">获取灵感</h2>
+                        <div class="card-stack">
+                            <!-- 灵感卡片，role="img" 告诉辅助技术这是一个图片，aria-label 提供描述 -->
+                            <div class="card card-3" role="img" aria-label="灵感图片 3"></div>
+                            <div class="card card-2" role="img" aria-label="灵感图片 2"></div>
+                            <div class="card card-1" role="img" aria-label="灵感图片 1"></div>
+                        </div>
+                    </section>
+                </aside>
+            </main>
+            <!-- 画廊页面，默认隐藏 (无 active 类) -->
+            <div id="page-gallery" class="page-content" role="main" aria-labelledby="gallery-heading">
+                <div class="placeholder-page panel">
+                    <h1 id="gallery-heading">我的画廊</h1>
+                    <p>画廊内容将在此处显示。</p>
+                </div>
+            </div>
+            <!-- 收藏夹页面 -->
+            <div id="page-favorites" class="page-content" role="main" aria-labelledby="favorites-heading">
+                <div class="placeholder-page panel">
+                    <h1 id="favorites-heading">收藏夹</h1>
+                    <p>收藏夹内容将在此处显示。</p>
+                </div>
+            </div>
+            <!-- 设置页面 -->
+            <div id="page-settings" class="page-content" role="main" aria-labelledby="settings-heading">
+                <div class="placeholder-page panel">
+                    <h1 id="settings-heading">设置</h1>
+                    <p>设置内容将在此处显示。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 在 body 结束前引入 JavaScript 文件，确保 HTML DOM 已加载 -->
+    <script src="script.js"></script>
+</body>
+
+</html>
