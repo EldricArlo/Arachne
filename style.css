@@ -1,0 +1,139 @@
+/* --- 1. 全局与基本设置 --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+:root {
+    --bg-color: #121212; --panel-bg-color: #1E1E1E; --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #EAEAEA; --text-secondary: #8A8A8A; --accent-color: #FF8A00;
+    --panel-radius: 24px; --gap: 16px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-primary);
+    display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: var(--gap);
+}
+
+/* --- 2. 主容器布局 --- */
+.main-container {
+    width: 100%; max-width: 1600px; height: 90vh; max-height: 900px;
+    display: grid; grid-template-columns: 90px 1fr; gap: var(--gap);
+}
+
+/* --- 3. 页面切换逻辑样式 --- */
+.page-content { display: none; height: 100%; }
+.page-content.active { display: block; } /* 默认设为 block，具体布局由内部决定 */
+
+/* --- 4. 通用面板和标题样式 --- */
+.panel {
+    background-color: var(--panel-bg-color); border-radius: var(--panel-radius);
+    border: 1px solid var(--border-color); padding: 20px;
+}
+.panel-title {
+    font-size: 12px; font-weight: 500; color: var(--text-secondary);
+    margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* --- 5. 左侧导航栏 --- */
+.left-sidebar {
+    display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 24px 0;
+}
+.logo { font-size: 28px; }
+.sidebar-nav ul { list-style: none; margin-top: 40px; }
+.sidebar-nav .nav-item { margin: 20px 0; cursor: pointer; }
+.sidebar-nav a { color: var(--text-secondary); font-size: 24px; transition: color 0.2s ease; pointer-events: none; }
+.sidebar-nav .nav-item.active a, .sidebar-nav .nav-item:hover a { color: var(--text-primary); }
+.sidebar-bottom { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.download-btn { width: 48px; height: 48px; background-color: #2c2c2c; border-radius: 50%; display: grid; place-items: center; font-size: 22px; cursor: pointer; }
+.profile img { width: 40px; height: 40px; border-radius: 50%; }
+
+/* --- 6. AI 生成器页面 (#page-generator) 内部布局 --- */
+
+/* 【关键修正】让 #page-generator 成为一个三列网格布局容器 */
+#page-generator.active {
+    display: grid;
+    /* 定义三列：主布局区占据剩余空间，右侧边栏固定280px */
+    grid-template-columns: 1fr 280px;
+    gap: var(--gap);
+    height: 100%; /* 确保网格占满页面高度 */
+}
+
+/* 【新增】主布局区（包含输入和显示堆栈）的网格定义 */
+.generator-layout {
+    display: grid;
+    /* 定义两列：左侧输入区占3份，右侧显示区占5份 */
+    grid-template-columns: 3fr 5fr;
+    gap: var(--gap);
+    height: 100%;
+}
+
+/* 【新增】左侧输入面板样式 */
+.prompt-panel {
+    display: flex;
+    flex-direction: column; /* 垂直排列图标和输入框 */
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+}
+.add-icon {
+    width: 40px; height: 40px; background-color: #333;
+    border-radius: 50%; display: grid; place-items: center; font-size: 20px;
+}
+.prompt-panel textarea {
+    background: none; border: none; outline: none; color: var(--text-primary);
+    font-size: 16px; width: 100%; flex-grow: 1; /* 占据所有剩余垂直空间 */
+    resize: none; /* 禁止用户调整大小 */
+    font-family: 'Inter', sans-serif; line-height: 1.6;
+}
+.prompt-panel textarea::placeholder { color: var(--text-secondary); }
+
+/* 【新增】右侧显示堆栈样式 */
+.display-stack {
+    display: flex;
+    flex-direction: column; /* 垂直堆叠子元素 */
+    gap: var(--gap);
+    height: 100%;
+}
+.search-bar { flex-shrink: 0; /* 防止搜索框被压缩 */ display: flex; align-items: center; padding: 12px 20px; }
+.search-bar i { font-size: 20px; color: var(--text-secondary); margin-right: 12px; }
+.search-bar input { background: none; border: none; outline: none; color: var(--text-primary); font-size: 16px; width: 100%; }
+
+.image-display {
+    padding: 0; overflow: hidden;
+    flex-grow: 1; /* 占据所有可用的垂直空间 */
+    min-height: 0; /* flex 布局中的重要技巧，防止内容溢出 */
+}
+.image-display img { width: 100%; height: 100%; object-fit: cover; }
+
+.style-chooser { flex-shrink: 0; /* 防止风格选择器被压缩 */ }
+.style-chooser .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags .tag {
+    background-color: #333; color: var(--text-secondary); border: 1px solid var(--border-color);
+    border-radius: 12px; padding: 8px 14px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease;
+}
+.tags .tag:hover, .tags .tag.active { background-color: #444; color: var(--text-primary); }
+
+/* 生成器页面的右侧边栏 */
+.generator-right-sidebar {
+    display: flex; flex-direction: column; gap: var(--gap);
+}
+.history-panel { flex-grow: 1; display: flex; flex-direction: column; gap: 12px; }
+.history-item {
+    background-color: #333; flex-grow: 1; border-radius: 16px; position: relative; cursor: pointer;
+    border: 2px solid transparent; transition: border-color 0.2s ease; overflow: hidden;
+    background-size: cover; background-position: center;
+}
+.history-item::before { content: '0' attr(data-index); position: absolute; top: 10px; left: 12px; background-color: rgba(0,0,0,0.3); color: var(--text-primary); padding: 4px 8px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+.history-item:nth-child(1) { background-image: url('https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/03.jpg'); }
+.history-item:nth-child(2) { background-image: url('https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/02.jpg'); }
+.history-item:nth-child(3) { background-image: url('https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/04.jpg'); }
+.history-item.active { border-color: var(--accent-color); }
+.inspiration-panel { height: 200px; }
+.card-stack { position: relative; display: flex; justify-content: center; align-items: center; height: 120px; }
+.card { width: 100px; height: 120px; border-radius: 16px; position: absolute; background-size: cover; background-position: center; transition: transform 0.3s ease; }
+.card:hover { transform: translateY(-10px) !important; }
+.card-1 { background-image: url('https://images.unsplash.com/photo-1620712943543-290d242c3862?auto=format&fit=crop&q=60&w=100'); transform: translateX(30px) rotate(8deg); z-index: 3; }
+.card-2 { background-image: url('https://images.unsplash.com/photo-1581092921449-42a1e0952a65?auto=format&fit=crop&q=60&w=100'); z-index: 2; }
+.card-3 { background-image: url('https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?auto=format&fit=crop&q=60&w=100'); transform: translateX(-30px) rotate(-8deg); z-index: 1; }
+
+/* --- 7. 占位符页面样式 --- */
+.placeholder-page { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+.placeholder-page h1 { font-size: 2rem; margin-bottom: 1rem; }
+.placeholder-page p { color: var(--text-secondary); }

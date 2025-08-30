@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator Interface - Corrected Version</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        
+        <!-- ================================== -->
+        <!-- ===== 左侧导航栏 (永久固定) ===== -->
+        <!-- ================================== -->
+        <aside class="left-sidebar panel">
+            <div class="sidebar-top">
+                <div class="logo"><i class="ri-sparkling-2-fill"></i></div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li class="nav-item active" data-target="page-generator"><a href="#"><i class="ri-compass-3-line"></i></a></li>
+                        <li class="nav-item" data-target="page-gallery"><a href="#"><i class="ri-gallery-line"></i></a></li>
+                        <li class="nav-item" data-target="page-favorites"><a href="#"><i class="ri-heart-3-line"></i></a></li>
+                        <li class="nav-item" data-target="page-settings"><a href="#"><i class="ri-settings-3-line"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="download-btn"><i class="ri-download-2-line"></i></div>
+                <div class="profile"><img src="https://i.pravatar.cc/40" alt="User Profile"></div>
+            </div>
+        </aside>
+
+        <!-- =============================================== -->
+        <!-- ===== 内容包装器 (所有可切换页面在此) ===== -->
+        <!-- =============================================== -->
+        <div class="content-wrapper">
+
+            <!-- 
+                页面1: AI 生成器页面
+                - class="active" 表示这个页面默认是显示的
+            -->
+            <main id="page-generator" class="page-content active">
+                
+                <!-- 【布局修正】此页面内部使用一个两列网格布局 -->
+                <div class="generator-layout">
+                    
+                    <!-- 第1列: 放大后的输入面板 -->
+                    <div class="prompt-panel panel">
+                        <div class="add-icon"><i class="ri-add-line"></i></div>
+                        <!-- 使用 textarea 实现多行输入 -->
+                        <textarea placeholder="Write your prompt here... Be descriptive and detailed for the best results."></textarea>
+                    </div>
+
+                    <!-- 第2列: 包含搜索、图片和风格的垂直堆叠 -->
+                    <div class="display-stack">
+                        <div class="search-bar panel">
+                            <i class="ri-search-line"></i>
+                            <input type="text" placeholder="Search">
+                        </div>
+                        <div class="image-display panel">
+                            <img src="https://storage.googleapis.com/gweb-aip.appspot.com/image-generator/experiments/new-horizons/meta-image.jpg" alt="Generated AI artwork">
+                        </div>
+                        <div class="style-chooser panel">
+                            <p class="panel-title">CHOOSE STYLES</p>
+                            <div class="tags">
+                                <button class="tag">Mythological</button>
+                                <button class="tag">Anime</button>
+                                <button class="tag">Fantasy</button>
+                                <button class="tag">Photography</button>
+                                <button class="tag">Sketch</button>
+                                <button class="tag active">3D Styles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧历史记录和灵感面板 -->
+                <aside class="generator-right-sidebar">
+                    <div class="history-panel panel">
+                        <div class="history-item active" data-index="01"></div>
+                        <div class="history-item" data-index="02"></div>
+                        <div class="history-item" data-index="03"></div>
+                    </div>
+                    <div class="inspiration-panel panel">
+                        <p class="panel-title">GET INSPIRED</p>
+                        <div class="card-stack">
+                            <div class="card card-3"></div>
+                            <div class="card card-2"></div>
+                            <div class="card card-1"></div>
+                        </div>
+                    </div>
+                </aside>
+            </main>
+
+            <!-- 
+                页面2: 图库页面
+                - 默认没有 'active' 类，所以是隐藏的
+            -->
+            <div id="page-gallery" class="page-content">
+                <div class="placeholder-page panel">
+                    <h1>My Gallery</h1>
+                    <p>This is where your generated images would appear.</p>
+                </div>
+            </div>
+
+            <!-- 页面3: 收藏页面 (默认隐藏) -->
+            <div id="page-favorites" class="page-content">
+                <div class="placeholder-page panel">
+                    <h1>Favorites</h1>
+                    <p>Your saved favorite images.</p>
+                </div>
+            </div>
+            
+            <!-- 页面4: 设置页面 (默认隐藏) -->
+            <div id="page-settings" class="page-content">
+                <div class="placeholder-page panel">
+                    <h1>Settings</h1>
+                    <p>Application settings and preferences.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
